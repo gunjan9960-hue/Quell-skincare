@@ -5,14 +5,13 @@ import { supabase } from '@/lib/supabase'
 
 export const dynamic = "force-dynamic";
 
-const razorpay = new Razorpay({
-  key_id: process.env.RAZORPAY_KEY_ID!,
-  key_secret: process.env.RAZORPAY_KEY_SECRET!,
-})
-
 type Session = { userId: string; phone: string }
 
 export async function POST(req: NextRequest) {
+  const razorpay = new Razorpay({
+    key_id: process.env.RAZORPAY_KEY_ID!,
+    key_secret: process.env.RAZORPAY_KEY_SECRET!,
+  })
   const { sessionToken, productId, shippingAddress } = await req.json()
 
   if (!sessionToken || !productId || !shippingAddress) {
